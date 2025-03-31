@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>FFlag-inator</title>
+		<style>
+			body {
+				background-color: black;
+				color: white;
+				font-size: 20px;
+				font-size: 1.2em;
+				line-height: 1.62;
+				font-family: sans-serif;
+
+				display: flex;
+				flex-direction: row;
+				align-items: center;
+
+				height: calc(100vh - 20px)
+			}
+
+			code, pre {
+				background-color: black;
+				color: white;
+				border-radius: 4px;
+				width: fit-content;
+			}
+
+			code {
+				padding: 0 2px;
+			}
+
+			pre {
+				border: 1px solid white;
+				padding: 2px;
+				margin: 10px;
+				overflow-wrap:break-word;
+			}
+
+			/* TODO: add media query for mobile devices,
+			   the paste is at the top (#left)
+			   and rest is at bottom
+				   */
+			#left {
+				width: 50%;
+				height: 100%;
+				flex: 0.4
+			}
+			
+			#right {
+				width: 50%;
+				height: 100%;
+				flex: 1
+			}
+
+			label {
+				display: block
+			}
+
+			.flags > div {
+				background-color: #303030
+			}
+			
+			.flags > div > .title {
+				display: inline;
+				font-weight: bold
+			}
+
+			input[type="checkbox"] {
+				margin: 10px;
+				transform: scale(1.75)
+			}
+			
+			input[type="number"] {
+				padding: 5px;
+				margin: 5px;
+				background-color: black;
+				color: white;
+				border: 1px solid white;
+				border-radius: 3px;
+				font-size: 20px;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="left">
+			<h1>FFlag-inator</h1>
+			<p>FFlag style:</p>
+			<label>
+				<input type="radio" name="sel" value="normal" checked>
+				Normal
+			</label>
+			<label>
+				<input type="radio" name="sel" value="sober">
+				Sober
+			</label>
+			<!--
+			<pre>
+			fflag requirements
+
+(X) DONT BREAK VEHICLE DRIVING
+# FFLAG LIST SHOULD WORK ON AS MANY GAMES AS POSSIBLE
+
+(X) flinging loose parts *SolidFloorApplication
+(x) noclip, not great but
+(X) wallglide
+(X) better network ownership (maybe placebo)
+(X) better physics sending rate
+( ) high jump (was patched)
+			</pre>
+			-->
+<pre id="copyBox"><code>Copy FFlags here</code></pre>
+		</div>
+		<div id="right">
+			<div id="presets"></div>
+			<noscript>This tool requires JavaScript to function properly</noscript>
+			<h1>FFlags</h1>
+			<p>FFlags are used by Roblox engineers to enable/disable features without updating the whole client.</p>
+			<!-- :set synmaxcol=5000 -->
+			<img src="data:image/webp;base64,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">
+			<h2>Flag presets</h2>
+			<button>Most games</button>
+			<div id="allflags"></div>
+			<!--
+			<h2>Physics</h2>
+			<div class="flags">
+				<div>
+					<input type="checkbox">
+					<div class="title">Mesh noclip</div>
+					<div>Allows you to noclip through meshes</div>
+					<div>Noclip amount: <input type="number" min="10" max="123" value="123"><span>Min: 3, max: 3</span></div>
+					<div>Noclip amount: <input type="number" min="10" max="123" value="123"></div>
+<pre><code>{
+	"DFIntNoclipEnabled": "123"
+}</code></pre>
+				</div>
+			</div>
+			-->
+		</div>
+		<script>
+			//need to handle string flags, boolean flags, and number flags
+			const flagSections = [
+				{
+					section: "General",
+					flags: [
+						{
+							name: "Uncap FPS",
+							description: "",
+							flags: [
+								{
+									name: "DFIntTaskSchedulerTargetFps",
+									type: "number",
+									tuneDescription: "FPS Cap",
+									min: 60,
+									max: 1000,
+									value: 500
+								}
+							]
+						},
+						{
+							name: "Disable some telemetry",
+							description: "Taken from Sober fflag defaults",
+							flags: [
+								{
+									name: "FFlagDebugDisableTelemetryEphemeralCounter",
+									type: "boolean",
+									value: true
+								},
+								{
+									name: "FFlagDebugDisableTelemetryEphemeralStat",
+									type: "boolean",
+									value: true
+								},
+								{
+									name: "FFlagDebugDisableTelemetryEventIngest",
+									type: "boolean",
+									value: true
+								},
+								{
+									name: "FFlagDebugDisableTelemetryPoint",
+									type: "boolean",
+									value: true
+								},
+								{
+									name: "FFlagDebugDisableTelemetryV2Counter",
+									type: "boolean",
+									value: true
+								},
+								{
+									name: "FFlagDebugDisableTelemetryV2Event",
+									type: "boolean",
+									value: true
+								},
+								{
+									name: "FFlagDebugDisableTelemetryV2Stat",
+									type: "boolean",
+									value: true
+								},
+							]
+						},
+						{
+							name: "Log player joins/leaves in developer console",
+							description: "Press F9 to show developer console",
+							flags: [
+								{
+									name: "FStringDebugLuaLogLevel",
+									type: "string",
+									value: "trace"
+								},
+								{
+									name: "FStringDebugLuaLogPattern",
+									type: "string",
+									value: "ExpChat/mountClientApp",
+								}
+							]
+						}
+					]
+				},
+				{
+					section: "Rendering",
+					flags: [
+						{
+							name: "Graphics slider only affects render distance",
+							description: "",
+							flags: [{
+								type: "number",
+								name: "DFIntDebugFRMQualityLevelOverride",
+								min: 1,
+								max: 1,
+								value: 1
+							}]
+						},
+					]
+				},
+				{
+					section: "Quality of life",
+					flags: [
+						{
+							name: "Disable Recommended",
+							description: "Disable the long recommended section on the home page",
+							flags: [{
+								type: "number",
+								name: "FIntGameGridFlexFeedItemTileNumPerFeed",
+								min: 0,
+								max: 0,
+								value: 0
+							}]
+						},
+					]
+				},
+				{
+					section: "Physics",
+					flags: [
+						{
+							name: "Better network ownership",
+							description: "Better network ownership of parts. This might get you banned in some games with anticheats (Limbobbia)",
+							flags: [
+								{
+									name: "DFIntMinClientSimulationRadius",
+									type: "number",
+									min: 2147000000,
+									max: 2147000000,
+									value: 2147000000,
+								},
+								{
+									name: "FFlagDebugUseCustomSimRadius",
+									type: "boolean",
+									value: true
+								},
+								{
+									name: "DFFlagDebugPhysicsSenderDoesNotShrinkSimRadius",
+									type: "boolean",
+									value: true,
+								},
+								{
+									name: "DFIntMaxClientSimulationRadius",
+									type: "number",
+									min: 2147000000,
+									max: 2147000000,
+									value: 2147000000,
+								},
+								{
+									name: "DFIntMinimalSimRadiusBuffer",
+									type: "number",
+									min: 2147000000,
+									max: 2147000000,
+									value: 2147000000,
+								}
+							]
+						},
+						{
+							name: "Mesh noclip",
+							description: "Allows you to noclip through meshes",
+							flags: [
+								//reference
+								/*
+								{
+									type: "number",
+									name: "DFIntNoclipAmount",
+									tuneDescription: "Noclip amount",
+									min: 123,
+									max: 1000,
+									value: 696
+								},
+								{
+									type: "string",
+									name: "NoclipQuality",
+									tuneDescription: "Noclip quality",
+									choices: ["Good", "Great"],
+									value: "Good",
+								},
+								{
+									type: "boolean",
+									name: "NoclipEnabled",
+									tuneDescription: "Enable noclip?",
+									choices: [true, false],
+									value: true
+								}
+								*/
+								{
+									type: "number",
+									name: "DFIntPhysicsDecompForceUpgradeVersion",
+									min: 1500,
+									max: 1500,
+									value: 1500
+								}
+							]
+						},
+						{
+							name: "Wallglide",
+							description: "When touching a wall you can fling about. Not very predictable",
+							flags: [
+								{
+									type: "number",
+									name: "DFIntMaximumUnstickForceInGs",
+									tuneDescription: "Force",
+									min: -4,
+									max: -5000,
+									value: -1000
+								}
+							]
+						},
+						{
+							name: "Fling unanchored parts",
+							description: "Negative value will fling up, positive value will fling down. NonSolid force flings car wheels, Solid flings",
+							flags: [
+								{
+									type: "number",
+									name: "DFIntNonSolidFloorPercentForceApplication",
+									tuneDescription: "NonSolid force",
+									min: -100000,
+									max: 100000,
+									value: -10000
+								},
+								{
+									type: "number",
+									name: "DFIntSolidFloorPercentForceApplication",
+									tuneDescription: "Solid force",
+									min: -100000,
+									max: 100000,
+									value: -10000
+								}
+							]
+						},
+						{
+							name: "Better physics syncing",
+							description: "Improved syncing. Roblox default is 15",
+							flags: [
+								{
+									name: "DFIntS2PhysicsSenderRate",
+									type: "number",
+									min: 15,
+									max: 10000,
+									value: 10000
+								}
+							]
+						}
+					]
+				}
+			]
+
+			//AKA all fflag styles
+			const allRadioButtons = Array.from(document.querySelectorAll("input[type='radio']"))
+			function getStyle(){
+				return allRadioButtons.find(r => r.checked === true).value
+			}
+
+			function update(){
+				//makes all selected flags appear in the copy and paste box
+				const box = document.querySelector("#copyBox")
+				//go through all enabled flag elements
+				let flagsToAdd = {}
+				Array.from(document.querySelectorAll(".flags > div")).forEach(flagElement => {
+					const checkbox = flagElement.children[0]
+					if(checkbox.checked){
+						const codeContent = flagElement.querySelector("code").textContent
+						const asObject = JSON.parse(codeContent)
+						Object.keys(asObject).forEach(flagName => {
+							flagsToAdd[flagName] = asObject[flagName]
+						})
+					}
+				})
+				
+				const formatted = JSON.stringify(flagsToAdd, null, 4)
+				
+				//check style
+				const style = getStyle()
+				
+				if(style === "normal"){
+					box.innerHTML = `<code>${formatted}</code>`
+				} else if(style === "sober") {
+					box.innerHTML = `<code>"fflags": ${formatted}</code>`
+
+				}
+			}
+			
+			allRadioButtons.forEach(button => {
+				button.onchange = update
+			})
+
+			function initFlagsTwo(){
+				const allflagsContainer = document.querySelector("#allflags")
+				flagSections.forEach(section => {
+					//for each section
+					const thisSectionContainer = document.createElement("div")
+					const sectionTitle = document.createElement("h2")
+					sectionTitle.innerHTML = section.section
+					thisSectionContainer.appendChild(sectionTitle)
+
+					//for this section
+					const flagsContainer = document.createElement("div")
+					flagsContainer.className = "flags"
+
+					thisSectionContainer.appendChild(flagsContainer)
+
+					section.flags.forEach(flag => {
+						const container = document.createElement("div")
+						const checkbox = document.createElement("input")
+						checkbox.type = "checkbox"
+						checkbox.onchange = update
+						container.appendChild(checkbox)
+
+						const title = document.createElement("div")
+						title.className = "title"
+						title.textContent = flag.name
+						container.appendChild(title)
+
+						const description = document.createElement("div")
+						description.textContent = flag.description
+						container.appendChild(description)
+
+						//appended later!
+						const outputElement = document.createElement("pre")
+
+						//key: fflag name, value: fflag value
+						// (:
+						let selectedFlags = {}
+
+						const createTheOutput = () => {
+							const output = JSON.stringify(selectedFlags, null, 4)
+
+							//should be good
+							outputElement.innerHTML = `<code>${output}</code>`
+						}
+
+						flag.flags.forEach(flagObj => {
+							const name = flagObj.name
+							const value = flagObj.value
+							if(flagObj.type === "number"){
+								const min = flagObj.min
+								const max = flagObj.max
+
+								if(min !== max){
+									//add option to change it
+									//how are we going to change it?
+									//probably modify the json thing with a function here
+									const tuneContainer = document.createElement("div")
+									tuneContainer.textContent = flagObj.tuneDescription
+
+									const tuneInput = document.createElement("input")
+									tuneInput.type = "number"
+									tuneInput.min = min.toString()
+									tuneInput.max = max.toString()
+									tuneInput.value = value
+
+									tuneInput.onchange = () => {
+										selectedFlags[flagObj.name] = tuneInput.value
+										createTheOutput()
+										update()
+									}
+
+									const constraintLabel = document.createElement("span")
+									constraintLabel.innerHTML = `Default: ${value}, Min: ${min}, Max: ${max}`
+
+									tuneContainer.appendChild(tuneInput)
+									tuneContainer.appendChild(constraintLabel)
+
+									container.appendChild(tuneContainer)
+								}
+								selectedFlags[name] = value.toString()
+							} else if(flagObj.type === "boolean"){
+								if(flagObj.choices){
+									//add option to change it
+								}
+
+								if(value === true){
+									selectedFlags[name] = "True"
+								} else {
+									selectedFlags[name] = "False"
+								}
+							} else if(flagObj.type === "string"){
+								if(flagObj.choices){
+									//add option to change it
+								}
+								selectedFlags[name] = value
+							}
+
+							container.appendChild(outputElement)
+						})
+						
+						createTheOutput()
+						flagsContainer.appendChild(container)
+						console.log(container, flagsContainer, allflagsContainer)
+					})
+					allflagsContainer.appendChild(thisSectionContainer)
+				})
+			}
+
+			initFlagsTwo()
+
+
+		</script>
+	</body>
+</html>
